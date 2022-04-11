@@ -124,6 +124,14 @@ test "regex sanity tests" {
     check("[a-b]|[d-f]\\s+", "d ", true);
     check("[a-b]|[d-f]\\s+", "b", true);
     check("[a-b]|[d-f]\\s+", "c", false);
+    check("\\bx\\b", "x", true);
+    check("\\bx\\b", " x ", true);
+    check("\\bx", "Ax", false);
+    check("x\\b", "xA", false);
+    check("\\Bx\\B", "x", false);
+    check("\\Bx\\B", " x ", false);
+    check("\\Bx", "Ax", true);
+    check("x\\B", "xA", true);
 }
 
 test "regex captures" {
@@ -180,4 +188,6 @@ test "regex memory leaks" {
     try checkCompile(allocator, "[Hh]ello [Ww]orld\\s*[!]?");
     try checkCompile(allocator, "[^\\w][^-1-4]");
     try checkCompile(allocator, "[a-b]|[d-f]\\s+");
+    try checkCompile(allocator, "x\\b");
+    try checkCompile(allocator, "x\\B");
 }

@@ -191,4 +191,12 @@ test "pikevm == backtrackvm" {
     check("[a-b]|[d-f]\\s+", "d ", true);
     check("[a-b]|[d-f]\\s+", "b", true);
     check("[a-b]|[d-f]\\s+", "c", false);
+    check("\\bx\\b", "x", true);
+    check("\\bx\\b", " x ", true);
+    check("\\bx", "Ax", false);
+    check("x\\b", "xA", false);
+    check("\\Bx\\B", "x", false);
+    check("\\Bx\\B", " x ", false);
+    check("\\Bx", "Ax", true);
+    check("x\\B", "xA", true);
 }
